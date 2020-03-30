@@ -5,6 +5,7 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ProgressMonitor;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +14,12 @@ public class CloneRemoteRepository {
 
     private static final String REMOTE_URL = "https://github.com/movilidadagil/CucumberWork.git";
 
-    public static void main(String[] args) throws IOException, GitAPIException {
-        // prepare a new folder for the cloned repository
-        File localPath = new File("C:\\Users\\xyx\\Downloads\\githubautomationtest");
 
-        final String user = "xxx";
+    public static void main(String[] args) throws IOException, GitAPIException, InterruptedException {
+        // prepare a new folder for the cloned repository
+        File localPath = new File("C:\\Users\\xyx\\Downloads\\githubtest");
+
+        final String user = "xxxx";
         final String pass = "xxxx";
         if (user != null && pass != null) {
 
@@ -36,6 +38,11 @@ public class CloneRemoteRepository {
 	        System.out.println("Having repository: " + result.getRepository().getDirectory());
         }
 
+
+        CallerFinder callerFinder=new CallerFinder();
+        JSONObject myList = callerFinder.methodLister(  "C:\\Users\\xyx\\Downloads\\githubtest",
+                "CucumberWork");
+        System.out.println(myList);
         // clean up here to not keep using more and more disk-space for these samples
     //    FileUtils.deleteDirectory(localPath);
     }
